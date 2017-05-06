@@ -1,3 +1,5 @@
+package TextExcel;
+
 import java.util.Scanner;
 
 public class TextExcel {
@@ -5,7 +7,6 @@ public class TextExcel {
 	public static final int ROWS = 11;
 	public static final int COLUMNS = 7;
 	public static final int WIDTH = 12;
-	
 	
 	public static void main(String[] args) throws Exception {
 		
@@ -28,7 +29,7 @@ public class TextExcel {
 				if (inputValue == null) {
 					System.out.println(rawInput + " = <empty>");
 				} else {
-					System.out.println(c.originalValue);
+					System.out.println(c.getOriginalValue());
 				}
 			}
 			System.out.print("\nEnter a command: ");

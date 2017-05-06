@@ -1,15 +1,16 @@
+package TextExcel;
 
 public class DoubleCell extends Cell {
 	
-	private double content;
+	private double doubleValue;
 	
 	public DoubleCell(double value) {
-		this.value = value + "";
-		content = value;
+		doubleValue = value;
+		this.setDisplayValue(doubleValue + "");
 	}
 	
 	public double getDouble() {
-		return content;
+		return doubleValue;
 	}
 	
 }

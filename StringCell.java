@@ -1,12 +1,13 @@
+package TextExcel;
 
 public class StringCell extends Cell {
 	
     public StringCell(String value) {
-    	this.value = value;
+    	this.setDisplayValue(value);
     }
     
     public String getString() {
-    	return value;
+    	return getDisplayValue();
     }
     
 }

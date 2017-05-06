@@ -1,10 +1,9 @@
+package TextExcel;
 
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class FormulaCell extends Cell {
-	
-	private double result;
 	
     public FormulaCell(String value) {
     	CellMatrix cellmatrix = CellMatrix.getInstance();
@@ -15,14 +14,14 @@ public class FormulaCell extends Cell {
     		int startRow = Integer.parseInt(value.substring(minus - 2, minus - 1));
     		int endRow = Integer.parseInt(value.substring(minus + 3, minus + 4));
     		double total = 0;
-    		Cell[][] cell = cellmatrix.getCelll();
+    		Cell[][] cell = CellMatrix.getCells();
     		for (int i = 0; i < endRow; i ++) {
     			for (int k = 0; k < endColumn; k++) {
     				total += Double.parseDouble(cellmatrix.getValue(cell[startColumn + i][startRow]));
     			}
     			total += Double.parseDouble(cellmatrix.getValue(cell[startColumn][startRow + i]));
     		}
-    		this.value = total + "";
+    		this.setDisplayValue(total + "");
     	} else if (value.contains("avg")) {
     		int minus = value.indexOf("-");
     		int startColumn = value.charAt(value.indexOf(value.substring(minus - 3, minus - 2))) - 'A';
@@ -31,7 +30,7 @@ public class FormulaCell extends Cell {
     		int endRow = Integer.parseInt(value.substring(minus + 3, minus + 4)) - 1;
     		double total = 0;
     		int counter = 0;
-    		Cell[][] cell = cellmatrix.getCelll();
+    		Cell[][] cell = CellMatrix.getCells();
     		for (int i = 0; i < endRow; i ++) {
     			for (int k = 0; k < endColumn; k++) {
     				total += Double.parseDouble(cellmatrix.getValue(cell[startColumn + i][startRow]));
@@ -40,11 +39,11 @@ public class FormulaCell extends Cell {
     			total += Double.parseDouble(cellmatrix.getValue(cell[startColumn][startRow + i]));
     			counter++;
     		}
-    		this.value = total / counter + "";
+    		this.setDisplayValue(total / counter + "");
+    	} else {
+    		
     	}
-    	ArrayList<String> v = parse(value);
-    	result = evaluate(v);
-    	this.value = result + "";
+    	this.setDisplayValue(evaluate(parse(value)) + "");
     }
     
     public ArrayList<String> parse(String input) {
