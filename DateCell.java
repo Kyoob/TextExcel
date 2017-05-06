@@ -1,15 +1,16 @@
+package TextExcel;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class DateCell extends Cell {
 	
-	private String value;
-	SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("MM/dd/yyyy");
-	Date dateValue = DATE_FORMAT.parse(value);
+	private Date dateValue;
 	
 	public DateCell (String value) throws ParseException {
-		this.value = value;
+		dateValue = new SimpleDateFormat("mm/dd/yyyy").parse(value);
+		this.setDisplayValue(value);
     }
 	
 	public Date getDate() {
