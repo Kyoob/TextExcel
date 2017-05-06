@@ -1,34 +1,47 @@
+package TextExcel;
 
 public class Cell {
 	
-	public static final int ROWS = 11;
-	public static final int COLUMNS = 7;
-	public static final int WIDTH = 12;
-	protected String value = null;
-	public String originalValue = null;
+	private static final int WIDTH = 12;
+	private String displayValue = null;
+	private String originalValue = null;
 	
 	public Cell() {
 		
 	}
 	
 	public Cell(String value) {
-		this.value = value;
+		this.displayValue = value;
+	}
+	
+	public void setOriginalValue(String value) {
+		originalValue = value;
+	}
+	
+	public String getOriginalValue() {
+		return originalValue;
+	}
+	
+	public void setDisplayValue(String value) {
+		displayValue = value;
+	}
+	
+	public String getDisplayValue() {
+		return displayValue;
 	}
 	
 	public void print() {
 		String displayValue = "";
-		if (this.value == null) {									// Sets Cell to 12 spaces
+		if (this.displayValue == null) {									// Sets Cell to 12 spaces
 			displayValue = "            ";
-		}
-		else if (this.value.length() > WIDTH) {						// Truncates String
-			displayValue = this.value.substring(0, WIDTH);
-		}
-		else {
-			int leftPadding = (WIDTH - this.value.length())/2;
+		} else if (this.displayValue.length() > WIDTH) {					// Truncates String
+			displayValue = this.displayValue.substring(0, WIDTH);
+		} else {
+			int leftPadding = (WIDTH - this.displayValue.length())/2;
 			for (int i = 0; i < leftPadding; i++) {
 				displayValue += " ";
 			}
-			displayValue += this.value;
+			displayValue += this.displayValue;
 			int rightPadding = WIDTH - displayValue.length();
 			for (int i=0; i < rightPadding; i++) {
 				displayValue += " ";
