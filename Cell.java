@@ -2,7 +2,7 @@ package TextExcel;
 
 public class Cell {
 	
-	private static final int WIDTH = 12;
+	private static final int WIDTH = TextExcel.WIDTH;
 	protected String displayValue = null;
 	private String originalValue = null;
 	

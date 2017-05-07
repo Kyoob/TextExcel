@@ -3,11 +3,11 @@ package TextExcel;
 public class StringCell extends Cell {
 	
     public StringCell(String value) {
-    	this.setDisplayValue(value);
+    	displayValue = value;
     }
     
     public String getString() {
-    	return getDisplayValue();
+    	return displayValue;
     }
     
 }

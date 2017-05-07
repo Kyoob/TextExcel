@@ -6,7 +6,7 @@ public class DoubleCell extends Cell {
 	
 	public DoubleCell(double value) {
 		doubleValue = value;
-		this.setDisplayValue(doubleValue + "");
+		displayValue = doubleValue + "";
 	}
 	
 	public double getDouble() {
