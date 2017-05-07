@@ -10,7 +10,7 @@ public class DateCell extends Cell {
 	
 	public DateCell (String value) throws ParseException {
 		dateValue = new SimpleDateFormat("mm/dd/yyyy").parse(value);
-		this.setDisplayValue(value);
+		displayValue = value;
     }
 	
 	public Date getDate() {

@@ -16,12 +16,11 @@ public class FormulaCell extends Cell {
     		double total = 0;
     		Cell[][] cell = CellMatrix.getCells();
     		for (int i = 0; i < endRow; i ++) {
-    			for (int k = 0; k < endColumn; k++) {
+    			for (int k = 0; k < endColumn; k++)
     				total += Double.parseDouble(cellmatrix.getValue(cell[startColumn + i][startRow]));
-    			}
     			total += Double.parseDouble(cellmatrix.getValue(cell[startColumn][startRow + i]));
     		}
-    		this.setDisplayValue(total + "");
+    		displayValue = total + "";
     	} else if (value.contains("avg")) {
     		int minus = value.indexOf("-");
     		int startColumn = value.charAt(value.indexOf(value.substring(minus - 3, minus - 2))) - 'A';
@@ -39,11 +38,9 @@ public class FormulaCell extends Cell {
     			total += Double.parseDouble(cellmatrix.getValue(cell[startColumn][startRow + i]));
     			counter++;
     		}
-    		this.setDisplayValue(total / counter + "");
-    	} else {
-    		
-    	}
-    	this.setDisplayValue(evaluate(parse(value)) + "");
+    		displayValue = total / counter + "";
+    	}	// TODO Able to set one cell equal to another
+    	displayValue = evaluate(parse(value)) + "";
     }
     
     public ArrayList<String> parse(String input) {
@@ -74,9 +71,8 @@ public class FormulaCell extends Cell {
 				i++;
 				double right = 1/Double.parseDouble(tokens.get(i));
 				outcome.set(outcome.size() - 1, Double.toString(left * right));
-			} else {
+			} else
 				outcome.add(tokens.get(i));
-			}
 			i++;
 		}
 		i = 0;
@@ -107,9 +103,8 @@ public class FormulaCell extends Cell {
 				outcome.set(i - 1, Double.toString(left - right));
 				outcome.remove(i);
 				outcome.remove(i);
-			} else {
+			} else
 				i++;
-			}
 		}
 		return Double.parseDouble(outcome.get(0));
     }
