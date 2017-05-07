@@ -3,15 +3,9 @@ package TextExcel;
 public class CellParser {
 	
 	public static Cell parseCell(String input) throws Exception {
-		if (input.contains("\"")) {
-			return new StringCell(input.replace("\"", ""));
-		} else if (input.contains("(") && input.contains(")")) {
-			return new FormulaCell(input);
-		} else if (input.contains("/")) {
-			return new DateCell(input);
-		} else {
-			return new DoubleCell(Double.parseDouble(input));
-		}
+		return (input.contains("\"")) ? new StringCell(input.replace("\"", "")) : (input.contains("(") && input.contains(")")
+									  ? new FormulaCell(input) : (input.contains("/")
+									  ? new DateCell(input) : new DoubleCell(Double.parseDouble(input))));
 	}
 	
 }
