@@ -3,7 +3,7 @@ package TextExcel;
 public class Cell {
 	
 	private static final int WIDTH = 12;
-	private String displayValue = null;
+	protected String displayValue = null;
 	private String originalValue = null;
 	
 	public Cell() {
@@ -32,20 +32,18 @@ public class Cell {
 	
 	public void print() {
 		String displayValue = "";
-		if (this.displayValue == null) {									// Sets Cell to 12 spaces
+		if (this.displayValue == null)									// Sets Cell to 12 spaces
 			displayValue = "            ";
-		} else if (this.displayValue.length() > WIDTH) {					// Truncates String
+		else if (this.displayValue.length() > WIDTH)					// Truncates String
 			displayValue = this.displayValue.substring(0, WIDTH);
-		} else {
+		else {
 			int leftPadding = (WIDTH - this.displayValue.length())/2;
-			for (int i = 0; i < leftPadding; i++) {
+			for (int i = 0; i < leftPadding; i++)
 				displayValue += " ";
-			}
 			displayValue += this.displayValue;
 			int rightPadding = WIDTH - displayValue.length();
-			for (int i=0; i < rightPadding; i++) {
+			for (int i=0; i < rightPadding; i++)
 				displayValue += " ";
-			}
 		}
 		System.out.print(displayValue);
 	}
