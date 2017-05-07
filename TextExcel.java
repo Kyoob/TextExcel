@@ -15,22 +15,21 @@ public class TextExcel {
 		Scanner console = new Scanner(System.in);
 		String rawInput = console.nextLine();
 		while (!(rawInput.equalsIgnoreCase("exit") || rawInput.equalsIgnoreCase("quit"))) {
-			if (rawInput.contains("clear")) {
+			if (rawInput.contains("clear"))
 				cellmatrix.clear(rawInput);
-			} else if (rawInput.equalsIgnoreCase("print")) {
+			else if (rawInput.equalsIgnoreCase("print"))
 				cellmatrix.print();
-			} else if (rawInput.contains("=")) {
+			else if (rawInput.contains("=")) {
 				int[] cell = findCoords(rawInput.substring(0, 2));
 				String inputValue = rawInput.substring(rawInput.indexOf("=") + 2);
 				cellmatrix.setValue(cell[0], cell[1], inputValue, rawInput);
 			} else {
 				Cell c = cellmatrix.getCell(rawInput);
 				String inputValue = cellmatrix.getValue(c);
-				if (inputValue == null) {
+				if (inputValue == null)
 					System.out.println(rawInput + " = <empty>");
-				} else {
+				else
 					System.out.println(c.getOriginalValue());
-				}
 			}
 			System.out.print("\nEnter a command: ");
 			rawInput = console.nextLine();
@@ -41,23 +40,16 @@ public class TextExcel {
 	}
 	
 	public static int[] findCoords(String s) {
-
-		char colLetter = s.charAt(0);
-		if (colLetter >= 'A' && colLetter <= 'G') {
-			int col = colLetter - 'A';
-			String rowNumber = s.substring(1);
-			int row = Integer.parseInt(rowNumber) - 1;
-			if (row < 0 || row > ROWS) {
+		int row = Integer.parseInt(s.charAt(1) + "") - 1;
+		int col = s.charAt(0) - 'A';
+		if (col >= 0 && col < COLUMNS) {
+			if (!(row < 0 || row > ROWS)) {
+				int result[] = {row + 1, col + 1};
+				return result;
+			} else
 				System.out.println("Error: Row out of bounds or invalid input.");
-				return null;
-			}
-			int result[] = {row + 1, col + 1};
-			return result;
-		} else {
+		} else
 			System.out.println("Error: Column out of bounds or invalid input.");
-			return null;
-		}
-		
+		return null;
 	}
-	
 }
