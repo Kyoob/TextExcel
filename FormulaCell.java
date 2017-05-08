@@ -14,7 +14,7 @@ public class FormulaCell extends Cell {
     		int endRow = Integer.parseInt(value.substring(minus + 3, minus + 4));
     		double total = 0;
     		Cell[][] cell = CellMatrix.getCells();
-    		for (int i = 0; i < endRow; i ++) {
+    		for (int i = 0; i < endRow; i++) {
     			for (int k = 0; k < endColumn; k++)
     				total += Double.parseDouble(cellmatrix.getValue(cell[startColumn + i][startRow]));
     			total += Double.parseDouble(cellmatrix.getValue(cell[startColumn][startRow + i]));
@@ -29,8 +29,8 @@ public class FormulaCell extends Cell {
     		double total = 0;
     		int counter = 0;
     		Cell[][] cell = CellMatrix.getCells();
-    		for (int i = 0; i < endRow; i ++) {
-    			for (int k = 0; k < endColumn; k++) {
+    		for (int i = 0; i < endRow; i++) {
+    			for (int j = 0; j < endColumn; j++) {
     				total += Double.parseDouble(cellmatrix.getValue(cell[startColumn + i][startRow]));
     				counter++;
     			}
@@ -50,7 +50,7 @@ public class FormulaCell extends Cell {
 			tokens.add(token);
 		}
 		tokens.remove(0);
-		tokens.remove(tokens.size()-1);
+		tokens.remove(tokens.size() - 1);
 		s.close();
 		return tokens;
     }
@@ -107,5 +107,12 @@ public class FormulaCell extends Cell {
 		}
 		return Double.parseDouble(outcome.get(0));
     }
-	
+    
+    public double sum() {
+    	return 0;
+    }
+    
+    public double avg() {
+    	return 0;
+    }
 }
