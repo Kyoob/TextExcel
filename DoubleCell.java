@@ -1,4 +1,3 @@
-package TextExcel;
 
 public class DoubleCell extends Cell {
 	

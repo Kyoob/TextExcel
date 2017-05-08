@@ -1,4 +1,3 @@
-package TextExcel;
 
 import java.util.Scanner;
 
