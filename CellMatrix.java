@@ -1,4 +1,3 @@
-package TextExcel;
 
 public class CellMatrix {
 	
@@ -49,7 +48,7 @@ public class CellMatrix {
 	
 	public void print() {
 		System.out.println();
-		for (int rows = 0; rows < ROWS; rows++)
+		for (int rows = 0; rows < ROWS; rows++) {
 			for (int cols = 0; cols < COLUMNS; cols++) {
 				cells[rows][cols].print();
 				System.out.print("|");
@@ -61,6 +60,7 @@ public class CellMatrix {
 				System.out.print("+");
 			}
 			System.out.println();
+		}
 	}
 	
 	public void clear(String input) throws Exception {
