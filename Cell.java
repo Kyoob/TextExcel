@@ -2,8 +2,8 @@
 public class Cell {
 	
 	private static final int WIDTH = TextExcel.WIDTH;
-	protected String displayValue = null;
-	private String originalValue = null;
+	protected String displayValue = null;	// What gets shown for that cell when calling CellMatrix.print()
+	private String originalValue = null;	// What was typed in by the user for that cell
 	
 	public Cell() {
 		
@@ -30,21 +30,21 @@ public class Cell {
 	}
 	
 	public void print() {
-		String displayValue = "";
-		if (this.displayValue == null)									// Sets Cell to 12 spaces
-			displayValue = "            ";
-		else if (this.displayValue.length() > WIDTH)					// Truncates String
-			displayValue = this.displayValue.substring(0, WIDTH);
+		String toDisplay = "";
+		if (displayValue == null)									// Sets Cell to 12 spaces
+			toDisplay = "            ";
+		else if (displayValue.length() > WIDTH)					// Truncates String
+			toDisplay = displayValue.substring(0, WIDTH);
 		else {
-			int leftPadding = (WIDTH - this.displayValue.length())/2;
+			int leftPadding = (WIDTH - displayValue.length())/2;
 			for (int i = 0; i < leftPadding; i++)
-				displayValue += " ";
-			displayValue += this.displayValue;
-			int rightPadding = WIDTH - displayValue.length();
-			for (int i=0; i < rightPadding; i++)
-				displayValue += " ";
+				toDisplay += " ";
+			toDisplay += displayValue;
+			int rightPadding = WIDTH - toDisplay.length();
+			for (int i = 0; i < rightPadding; i++)
+				toDisplay += " ";
 		}
-		System.out.print(displayValue);
+		System.out.print(toDisplay);
 	}
 	
 }
