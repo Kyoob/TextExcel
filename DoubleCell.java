@@ -3,7 +3,8 @@ public class DoubleCell extends Cell {
 	
 	private double doubleValue;
 	
-	public DoubleCell(double value) {
+	public DoubleCell(double value, String original) {
+		setOriginalValue(original);
 		doubleValue = value;
 		displayValue = doubleValue + "";
 	}

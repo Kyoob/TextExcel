@@ -1,7 +1,8 @@
 
 public class StringCell extends Cell {
 	
-    public StringCell(String value) {
+    public StringCell(String value, String original) {
+    	setOriginalValue(original);
     	displayValue = value;
     }
     

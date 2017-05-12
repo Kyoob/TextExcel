@@ -7,7 +7,8 @@ public class DateCell extends Cell {
 	
 	private Date dateValue;
 	
-	public DateCell (String value) throws ParseException {
+	public DateCell (String value, String original) throws ParseException {
+		setOriginalValue(original);
 		dateValue = new SimpleDateFormat("mm/dd/yyyy").parse(value);
 		displayValue = value;
     }
