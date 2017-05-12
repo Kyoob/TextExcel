@@ -30,6 +30,7 @@ public class TextExcel {
 				else
 					System.out.println(c.getOriginalValue());
 			}
+			update();
 			System.out.print("\nEnter a command: ");
 			rawInput = console.nextLine();
 		}
@@ -39,16 +40,24 @@ public class TextExcel {
 	}
 	
 	public static int[] findCoords(String s) {
-		int row = Integer.parseInt(s.charAt(1) + "") - 1;
 		int col = s.charAt(0) - 'A';
+		int row = Integer.parseInt(s.charAt(1) + "") - 1;
 		if (col >= 0 && col < COLUMNS) {
 			if (!(row < 0 || row > ROWS)) {
 				int result[] = {row + 1, col + 1};
 				return result;
 			} else
-				System.out.println("Error: Row out of bounds or invalid input.");
+				System.err.println("Error: Row out of bounds or invalid input.");
 		} else
-			System.out.println("Error: Column out of bounds or invalid input.");
+			System.err.println("Error: Column out of bounds or invalid input.");
 		return null;
+	}
+	
+	private static void update() {
+//		Cell[][] cells = CellMatrix.getInstance().getCells();
+//		for (int row = 1; row < ROWS; row++)
+//			for (int col = 1; col < COLUMNS; col++)
+//				if (cells[row][col] instanceof FormulaCell)
+//					cells[row][col] = new FormulaCell(cells[row][col].getDisplayValue(), cells[row][col].getOriginalValue());
 	}
 }
