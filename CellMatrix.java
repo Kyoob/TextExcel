@@ -24,7 +24,7 @@ public class CellMatrix {
 		return instance;
 	}
 	
-	public static Cell[][] getCells() {
+	public Cell[][] getCells() {
 		return cells;
 	}
 	
@@ -32,9 +32,8 @@ public class CellMatrix {
 		return "" + (char)('A' + col);
 	}
 	
-	public void setValue(int rows, int cols, String value, String original) throws Exception {
-		cells[rows][cols] = CellParser.parseCell(value);
-		cells[rows][cols].setOriginalValue(original);
+	public void setValue(int row, int col, String value, String original) throws Exception {
+		cells[row][col] = CellParser.parseCell(value, original);
 	}
 	
 	public String getValue(Cell c){
