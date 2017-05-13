@@ -30,7 +30,6 @@ public class TextExcel {
 				else
 					System.out.println(c.getOriginalValue());
 			}
-			update();
 			System.out.print("\nEnter a command: ");
 			rawInput = console.nextLine();
 		}
@@ -53,11 +52,4 @@ public class TextExcel {
 		return null;
 	}
 	
-	private static void update() {
-//		Cell[][] cells = CellMatrix.getInstance().getCells();
-//		for (int row = 1; row < ROWS; row++)
-//			for (int col = 1; col < COLUMNS; col++)
-//				if (cells[row][col] instanceof FormulaCell)
-//					cells[row][col] = new FormulaCell(cells[row][col].getDisplayValue(), cells[row][col].getOriginalValue());
-	}
 }

@@ -34,6 +34,7 @@ public class CellMatrix {
 	
 	public void setValue(int row, int col, String value, String original) throws Exception {
 		cells[row][col] = CellParser.parseCell(value, original);
+		update();
 	}
 	
 	public String getValue(Cell c){
@@ -71,6 +72,16 @@ public class CellMatrix {
 			for (int x = 1; x < ROWS; x++)
 				for (int y = 1; y < COLUMNS; y++)
 					cells[x][y].setDisplayValue(null);
+	}
+	
+	private static void update() throws Exception {
+		Cell[][] cells = instance.getCells();
+		for (int row = 1; row < ROWS; row++)
+			for (int col = 1; col < COLUMNS; col++)
+				if (cells[row][col] instanceof FormulaCell)
+					instance.setValue(row, col, cells[row][col].getDisplayValue(), cells[row][col].getOriginalValue());
+					//cells[row][col] = CellParser.parseCell(cells[row][col].getDisplayValue(), cells[row][col].getOriginalValue());
+					//cells[row][col] = new FormulaCell(cells[row][col].getDisplayValue(), cells[row][col].getOriginalValue());
 	}
 	
 }
