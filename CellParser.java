@@ -2,10 +2,10 @@
 public class CellParser {
 	
 	public static Cell parseCell(String input, String original) throws Exception {
-		return (input.contains("\""))					   ? new StringCell(input.replace("\"", ""), original)
-			 : (input.contains("(") && input.contains(")") ? new FormulaCell(input, original)
-			 : (input.contains("/")						   ? new DateCell(input, original)
-			 :												 new DoubleCell(Double.parseDouble(input), original)));
+		return (original.contains("\""))															? new StringCell(input.replace("\"", ""), original)
+			 : (original.contains("(") && original.substring(original.indexOf('(')).contains(")")	? new FormulaCell(input, original, true)
+			 : (original.contains("/")																? new DateCell(input, original)
+			 :																						  new DoubleCell(Double.parseDouble(input), original)));
 	}
 	
 }

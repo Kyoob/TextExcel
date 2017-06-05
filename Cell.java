@@ -31,7 +31,7 @@ public class Cell {
 	
 	public void print() {
 		String toDisplay = "";
-		if (displayValue == null)									// Sets Cell to 12 spaces
+		if (displayValue == null)								// Sets Cell to 12 spaces
 			toDisplay = "            ";
 		else if (displayValue.length() > WIDTH)					// Truncates String
 			toDisplay = displayValue.substring(0, WIDTH);
