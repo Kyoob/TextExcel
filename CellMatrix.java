@@ -63,7 +63,7 @@ public class CellMatrix {
 		}
 	}
 	
-	public void clear(String input) throws Exception {
+	public void clear(String input)  {
 		if (input.contains(" ")) {
 			String[] tokens = input.split(" ");
 			int[] value = TextExcel.findCoords(tokens[1]);
@@ -75,13 +75,10 @@ public class CellMatrix {
 	}
 	
 	private static void update() throws Exception {
-		Cell[][] cells = instance.getCells();
 		for (int row = 1; row < ROWS; row++)
 			for (int col = 1; col < COLUMNS; col++)
 				if (cells[row][col] instanceof FormulaCell)
-					instance.setValue(row, col, cells[row][col].getDisplayValue(), cells[row][col].getOriginalValue());
-					//cells[row][col] = CellParser.parseCell(cells[row][col].getDisplayValue(), cells[row][col].getOriginalValue());
-					//cells[row][col] = new FormulaCell(cells[row][col].getDisplayValue(), cells[row][col].getOriginalValue());
+					cells[row][col] = new FormulaCell(cells[row][col].getDisplayValue(), cells[row][col].getOriginalValue(), false);
 	}
 	
 }
