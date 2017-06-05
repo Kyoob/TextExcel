@@ -10,39 +10,38 @@ public class TextExcel {
 	public static final int WIDTH = 12;
 	
 	public static void main(String[] args) throws Exception {
-		
 		CellMatrix instance = CellMatrix.getInstance();
-		System.out.print("Welcome to TextExcel!\n\nEnter a command: ");
 		Scanner console = new Scanner(System.in);
-		String rawInput = console.nextLine();
-		while (!(rawInput.equalsIgnoreCase("exit") || rawInput.equalsIgnoreCase("quit"))) {
+		String rawInput;
+		System.out.println("Welcome to TextExcel!");
+		do {
+			System.out.print("\nEnter a command: ");
+			rawInput = console.nextLine();
 			if (rawInput.contains("clear"))
 				instance.clear(rawInput);
-			else if (rawInput.equalsIgnoreCase("print"))
+			else if (rawInput.equalsIgnoreCase("print") || rawInput.equalsIgnoreCase("p"))
 				instance.print();
 			else if (rawInput.contains("=")) {
 				int[] cell = findCoords(rawInput.substring(0, 2));
 				String inputValue = rawInput.substring(rawInput.indexOf("=") + 2);
 				instance.setValue(cell[0], cell[1], inputValue, rawInput);
-			} else {
-				Cell c = instance.getCell(rawInput);
-				String inputValue = instance.getValue(c);
-				if (inputValue == null)
-					System.out.println(rawInput + " = <empty>");
-				else
-					System.out.println(c.getOriginalValue());
-			}
-			System.out.print("\nEnter a command: ");
-			rawInput = console.nextLine();
-		}
+			} else
+				try {
+					Cell c = instance.getCell(rawInput);
+					String inputValue = instance.getValue(c);
+					if (inputValue == null)
+						System.out.println(rawInput + " = <empty>");
+					else
+						System.out.println(c.getOriginalValue());
+				} catch (Exception e) {}
+		} while (!(rawInput.equalsIgnoreCase("exit") || rawInput.equalsIgnoreCase("quit") || rawInput.equalsIgnoreCase("q")));
 		console.close();
-		System.out.print("\nFarewell!");
-		
+		System.out.println("\nFarewell!\n");
 	}
 	
-	public static int[] findCoords(String s) {
-		int col = s.charAt(0) - 'A';
-		int row = Integer.parseInt(s.charAt(1) + "") - 1;
+	public static int[] findCoords(String cellString) {
+		int col = cellString.charAt(0) - 'A';
+		int row = Integer.parseInt(cellString.charAt(1) + "") - 1;
 		if (col >= 0 && col < COLUMNS)
 			if (!(row < 0 || row > ROWS))
 				return new int[] {row + 1, col + 1};
