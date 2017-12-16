@@ -22,7 +22,7 @@ public class TextExcel {
 			else if (rawInput.equalsIgnoreCase("print") || rawInput.equalsIgnoreCase("p"))
 				instance.print();
 			else if (rawInput.contains("=")) {
-				int[] cell = findCoords(rawInput.substring(0, rawInput.replace(" ", "").indexOf('=')));
+				int[] cell = CellParser.findCoords(rawInput.substring(0, rawInput.replace(" ", "").indexOf('=')));
 				if (cell != null)
 					instance.setValue(cell[0], cell[1], rawInput.substring(rawInput.indexOf("=") + 1), rawInput);
 			} else
@@ -39,19 +39,6 @@ public class TextExcel {
 		} while (!(rawInput.equalsIgnoreCase("exit") || rawInput.equalsIgnoreCase("quit") || rawInput.equalsIgnoreCase("q")));
 		console.close();
 		System.out.println("\nFarewell!\n");
-	}
-	
-	public static int[] findCoords(String cellString) {
-		int col = cellString.charAt(0) - 'A';
-		int row = Integer.parseInt(cellString.substring(1)) - 1;
-		if (col >= 0 && col < COLUMNS)
-			if (row >= 0 && row < ROWS - 1)
-				return new int[] {row + 1, col + 1};
-			else
-				System.err.println("Error: Row out of bounds.");
-		else
-			System.err.println("Error: Column out of bounds.");
-		return null;
 	}
 	
 }

@@ -42,7 +42,7 @@ public class CellMatrix {
 	}
 	
 	public Cell getCell(String s) {
-		int[] c = TextExcel.findCoords(s);
+		int[] c = CellParser.findCoords(s);
 		return cells[c[0]][c[1]];
 	}
 	
@@ -66,7 +66,7 @@ public class CellMatrix {
 	public void clear(String input)  {
 		if (input.contains(" ")) {
 			String[] tokens = input.split(" ");
-			int[] value = TextExcel.findCoords(tokens[1]);
+			int[] value = CellParser.findCoords(tokens[1]);
 			cells[value[0]][value[1]].setDisplayValue(null);
 		} else
 			for (int x = 1; x < ROWS; x++)
