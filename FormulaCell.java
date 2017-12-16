@@ -3,48 +3,66 @@ public class FormulaCell extends Cell {
 	
     public FormulaCell(String value, String original, boolean notUpdated) {
 		setOriginalValue(original);
-		if (original.contains("sum") || original.contains("avg"))
-			if (original.contains("sum"))
-				displayValue = sum(original.substring(original.indexOf('m') + 1), notUpdated)[0] + "";
-			else
-				displayValue = avg(original.substring(original.indexOf('g') + 1), notUpdated) + "";
-		else {
-	    	int[] referenceCell = TextExcel.findCoords(original.substring(original.indexOf('(') + 1, original.indexOf(')')));
-	    	if (value.charAt(1) == original.charAt(0) && value.charAt(2) == original.charAt(1))
-	    		System.err.println("Warning: self reference\n");
-	    	displayValue = CellMatrix.getInstance().getValue(CellMatrix.getInstance().getCells()[referenceCell[0]][referenceCell[1]]) + "";
+		original = original.replace(" ", "").substring(original.indexOf('='));
+		switch (original.substring(0, original.indexOf('('))) {
+			case ("sum"):
+				displayValue = sum(original.substring(original.indexOf('(')), notUpdated)[0] + "";
+				break;
+			case ("avg"):
+			case ("average"):
+				displayValue = avg(original.substring(original.indexOf('(')), notUpdated) + "";
+				break;
+			case ("cat"):
+				displayValue = cat(original.substring(original.indexOf('(')));
+				break;
+			default:
+				int[] referenceCell = CellParser.findCoords(original.substring(original.indexOf('(') + 1, original.indexOf(')')));
+				if (value.charAt(1) == getOriginalValue().charAt(0) && value.charAt(2) == getOriginalValue().charAt(1))
+					System.err.println("Warning: self reference\n");
+				displayValue = CellMatrix.getInstance().getValue(CellMatrix.getInstance().getCells()[referenceCell[0]][referenceCell[1]]) + "";;
+				break;
 		}
     }
     
-    public double[] sum(String range, boolean notUpdated) {
+    private double[] sum(String range, boolean notUpdated) {
     	int sum = 0;
     	int cellNum = 0;
     	int wrongCellNum = 0;
-    	CellMatrix instance = CellMatrix.getInstance();
-    	Cell[][] cells = instance.getCells();
-    	String[] tokens = range.replace(" ", "").replace("(", "").replace(")", "").split("-");
-    	int[] cell1 = TextExcel.findCoords(tokens[0]);
-    	int[] cell2 = TextExcel.findCoords(tokens[1]);
-    	for (int row = cell1[0]; row <= cell2[0]; ++row)
-    		for (int col = cell1[1]; col <= cell2[1]; ++col) {
-    			++cellNum;
-    			if (cells[row][col] instanceof DoubleCell || cells[row][col] instanceof FormulaCell)
+    	Cell[][] cells = CellMatrix.getInstance().getCells();
+    	int[][] cellRange = cellRange(range);
+    	for (int row = cellRange[0][0]; row <= cellRange[1][0]; ++row)
+    		for (int col = cellRange[0][1]; col <= cellRange[1][1]; ++col)
+    			if (cells[row][col] instanceof DoubleCell || cells[row][col] instanceof FormulaCell) {
+    				++cellNum;
     				sum += Double.parseDouble(cells[row][col].getDisplayValue());
-    			else
+    			} else
     				++wrongCellNum;
-    		}
     	if (cellNum == 0 && notUpdated)
     		System.err.println("No number cells detected in range.");
     	else if (wrongCellNum > 0 && notUpdated)
-    		System.err.println(wrongCellNum + " of " + cellNum + " cells in range non-number cells, ignored.\n");
+    		System.err.println(wrongCellNum + " of " + (cellNum + wrongCellNum) + " cells in range non-number cells, ignored.\n");
     	notUpdated = false;
     	return new double[] {sum, cellNum};
     }
     
-    public double avg(String range, boolean notUpdated) {
+    private double avg(String range, boolean notUpdated) {
     	double[] sum = sum(range, notUpdated);
-    	if (sum[1] > 0)
-    		return sum[0] / sum[1];
-    	return sum[0];
+    	return sum[1] > 0 ? sum[0] / sum[1] : sum[0];
     }
+    
+    private String cat(String range) {
+    	String cat = "";
+    	Cell[][] cells = CellMatrix.getInstance().getCells();
+    	int[][] cellRange = cellRange(range);
+    	for (int row = cellRange[0][0]; row <= cellRange[1][0]; ++row)
+    		for (int col = cellRange[0][1]; col <= cellRange[1][1]; ++col)
+    				cat = cells[row][col].getDisplayValue() != null ? cat.concat(cells[row][col].getDisplayValue()) : cat;
+    	return cat;
+    }
+    
+    private int[][] cellRange(String range) {
+    	String[] tokens = range.replace("(", "").replace(")", "").split("-");
+    	return new int[][] {CellParser.findCoords(tokens[0]), CellParser.findCoords(tokens[1])};
+    }
+    
 }
